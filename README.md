@@ -1,73 +1,108 @@
-# Console Automation - Google Photos Selector
-# 📸 Google Photos Bulk Day Selection Script
+# Console Automation – Google Photos Selector
 
-Language‑agnostic browser **console automation script** to bulk select entire day groups in Google Photos.
+Language‑agnostic **browser console automation scripts** to bulk manage photos in Google Photos.
 
-Built to solve a real migration problem: moving thousands of photos from one Google account to another without manually clicking day by day.
+This project was built to solve a real migration problem: moving thousands of photos from one Google account to another without manually clicking day by day.
+
+The repo now includes **two complementary scripts** located inside `/scripts/`:
+
+- 📅 `google-photos-days-selector.js` → Select entire day groups automatically
+- 🖼️ `google-photos-photos-selector.js` → Select individual photos automatically (review mode)
+
+Together they make large migrations fast and painless.
 
 ---
 
 ## 💡 Why This Exists
 
-I needed to migrate my photo library from one Google account to another.
+I needed to migrate my photo library between Google accounts.
 
-Google Photos doesn't provide an easy way to:
+Google Photos doesn’t provide an easy way to:
 
-❌ Select dozens/hundreds of days quickly  
-❌ Bulk add many day groups to an album efficiently  
+❌ Select hundreds of days quickly  
+❌ Bulk add large sets of photos to albums  
+❌ Review unselected leftovers efficiently  
 
-Doing it manually = hours of clicking.
+Doing this manually = hours of repetitive clicking.
 
-So I built a small **console automation script** that selects multiple days automatically while you scroll.
+So I built small **console scripts** that automate the boring parts.
 
 ---
 
-## 🔁 Real Migration Workflow (How I Use It)
+## 📁 Project Structure
 
-This is the exact process the script was designed for:
+```
+/scripts
+   google-photos-days-selector.js
+   google-photos-photos-selector.js
+README.md
+```
 
-### Step-by-step
+---
+
+## 🔁 Real Migration Workflow (Recommended)
+
+### Step‑by‑step
 
 1. Log into the **destination account**
 2. Create **one shared album**
-3. Invite the **source account** to that album
+3. Invite the **source account**
 4. Switch to the **source account**
 5. Open the shared album → click **“Add photos”**
-6. Open DevTools → **Console**
-7. Paste and run the script
-8. Days are selected automatically
-9. Click **Save manually**
-10. Repeat as many times as needed
+6. Open DevTools → Console
+7. Run the scripts
 
-This approach lets you:
+### Typical usage
 
-✅ Run the script multiple times  
-✅ Migrate in batches  
-✅ Avoid timeouts  
-✅ Keep full control of what gets added  
+### 1️⃣ Select days first
+Paste and run:
+```
+scripts/google-photos-days-selector.js
+```
+
+This selects multiple **whole days** at once.
+
+Click **Save manually**.
+
+### 2️⃣ Then review leftovers (optional)
+Paste and run:
+```
+scripts/google-photos-photos-selector.js
+```
+
+This:
+- selects individual photos
+- hides already selected ones
+- scrolls automatically
+- helps you catch anything you missed
+
+Run again to toggle OFF.
 
 ---
 
 ## ✨ Features
 
+### Day selector
 ✔ Bulk day selection  
-✔ Works in ANY language  
-✔ No fragile CSS classes  
-✔ Uses accessibility roles (role="checkbox")  
-✔ Smart day detection  
-✔ Configurable scroll direction  
-✔ Optional click history saving  
-✔ No installation required  
-✔ Runs directly in browser console  
+✔ Smart checkbox detection  
+✔ Scroll up/down/both  
+✔ Language‑agnostic  
+
+### Photo selector
+✔ Selects visible photos automatically  
+✔ Hides already selected photos (clean view)  
+✔ Toggle ON/OFF  
+✔ Scroll direction control (up/down)  
+✔ Start at top/bottom/keep position  
 
 ---
 
 ## 🚀 Quick Start
 
 1. Open Google Photos
-2. Navigate to the album or timeline
+2. Navigate to album or timeline
 3. Open DevTools → Console
-4. Paste script.js
+4. Paste one of the scripts
 5. Press Enter
 
 Done.
@@ -76,41 +111,45 @@ Done.
 
 ## ⚙️ Configuration
 
+### Day selector
+
 ```javascript
 const ACTION_MODE = "older"; // newer | older | both
 const DAYS_TO_SELECT = 5;
 const SAVE_CLICKS = true;
 ```
 
-| Option | Description |
-|--------|-------------|
-| ACTION_MODE | Scroll direction |
-| DAYS_TO_SELECT | How many day groups to select |
-| SAVE_CLICKS | Store labels for debugging/replay |
+### Photo selector
+
+```javascript
+const START_AT = "top";     // top | bottom | keep
+const SCROLL_MODE = "down"; // down | up
+```
 
 ---
 
 ## 🧠 How It Works
 
-Instead of relying on language-specific labels like:
+Instead of relying on language‑specific labels like:
 
 ❌ aria-label^="Select all photos"
 
-The script uses:
+The scripts use:
 
 ✔ role="checkbox"  
+✔ aria-checked state  
 ✔ DOM structure  
-✔ Visual proximity to the day header  
+✔ visual proximity  
 
-This makes it work across:
+So they work in **any language**:
 English, Spanish, Portuguese, French, German, etc.
 
 ---
 
 ## ⚠️ Disclaimer
 
-This is not an official Google tool.  
-It simply simulates clicks in your own browser.
+Not an official Google tool.  
+It simply simulates clicks locally in your browser.
 
 Use responsibly.
 
